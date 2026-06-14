@@ -5,7 +5,7 @@
 // em /demandas, que já está configurado com a SUPABASE_KEY.
 // ---------------------------------------------------------------
 const SUPABASE_URL = "https://yoamnqxfocjpbqewamta.supabase.co/rest/v1";
-const SUPABASE_KEY = "COLOQUE_A_ANON_KEY_AQUI";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvYW1ucXhmb2NqcGJxZXdhbXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NDUxOTcsImV4cCI6MjA5NzAyMTE5N30.cdjwbxcNrEgk2mEgmf4a1zqfRkipy8uVKKrqoe6KQO0";
 
 const supabaseHeaders = {
   "Content-Type": "application/json",
