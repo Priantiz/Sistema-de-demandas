@@ -63,13 +63,32 @@ async function carregarDemandas() {
       <td>${d.localizacao || "-"}</td>
       <td>${d.status}</td>
       <td>
+        <button onclick="editarDemanda(${d.id})">Editar</button>
         <button onclick="remover(${d.id})">Remover</button>
       </td>
     </tr>
   `).join("");
 }
 
+async function editarDemanda(id) {
+  const novoStatus = prompt("Digite o novo status: Pendente, Em andamento ou Resolvido");
+
+  if (!novoStatus) return;
+
+  await fetch(`${SUPABASE_URL}/demandas?id=eq.${id}`, {
+    method: "PATCH",
+    headers: { ...headers, "Prefer": "return=representation" },
+    body: JSON.stringify({ status: novoStatus })
+  });
+
+  carregarDemandas();
+}
+
 async function remover(id) {
+  const confirmar = confirm("Tem certeza que deseja remover esta demanda?");
+
+  if (!confirmar) return;
+
   await fetch(`${SUPABASE_URL}/demandas?id=eq.${id}`, {
     method: "DELETE",
     headers
