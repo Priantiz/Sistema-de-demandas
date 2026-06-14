@@ -13,7 +13,7 @@ O projeto também mantém as práticas das etapas anteriores, como testes automa
 - **Banco de dados:** Supabase (PostgreSQL)
 - **Testes:** Pytest
 - **CI/CD:** GitHub Actions
-- **Deploy:** _[adicionar link após publicação]_
+- **Deploy:** https://sistema-de-demandas-flask.onrender.com/
 
 ## Funcionalidades
 
