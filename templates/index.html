@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Demandas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Demandas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-  <div class="page">
+    <div class="page">
 
-    <header class="topbar">
-      <div class="topbar__brand">
-        <span class="topbar__stamp">PROTOCOLO MUNICIPAL</span>
-        <h1 class="topbar__title">Sistema de Demandas</h1>
-        <p class="topbar__subtitle">Registre, acompanhe e resolva ocorrências da cidade</p>
-      </div>
-      <button id="btn-abrir-form" class="btn btn--primary">+ Nova demanda</button>
-    </header>
+        <header class="topbar">
+            <div class="topbar__brand">
+                <span class="topbar__stamp">PROTOCOLO MUNICIPAL</span>
+                <h1 class="topbar__title">Sistema de Demandas</h1>
+                <p class="topbar__subtitle">Registre, acompanhe e resolva ocorrências da cidade</p>
+            </div>
+            <button id="btn-abrir-form" class="btn btn--primary">+ Nova demanda</button>
+        </header>
 
-    <section id="painel-form" class="panel panel--form is-hidden">
-      <div class="panel__header">
-        <h2>Abrir nova demanda</h2>
-        <button id="btn-fechar-form" class="btn-icon" aria-label="Fechar formulário">×</button>
-      </div>
+        <section id="painel-form" class="panel panel--form is-hidden">
+            <div class="panel__header">
+                <h2>Abrir nova demanda</h2>
+                <button id="btn-fechar-form" class="btn-icon" aria-label="Fechar formulário">×</button>
+            </div>
 
-      <form id="form-demanda" class="form-grid">
-        <label class="field field--full">
+            <form id="form-demanda" class="form-grid">
+                <label class="field field--full">
           <span class="field__label">Título</span>
           <input type="text" id="titulo" placeholder="Ex: Poste sem iluminação na praça" required>
         </label>
 
-        <label class="field field--full">
+                <label class="field field--full">
           <span class="field__label">Descrição</span>
           <textarea id="descricao" rows="3" placeholder="Descreva o problema com detalhes" required></textarea>
         </label>
 
-        <label class="field">
+                <label class="field">
           <span class="field__label">Localização</span>
           <input type="text" id="localizacao" placeholder="Rua, bairro ou ponto de referência">
         </label>
 
-        <label class="field">
+                <label class="field">
           <span class="field__label">Status</span>
           <select id="status">
             <option value="Pendente">Pendente</option>
@@ -52,32 +54,32 @@
           </select>
         </label>
 
-        <label class="field">
+                <label class="field">
           <span class="field__label">Categoria</span>
           <select id="categoria_id">
             <option value="">Selecione...</option>
           </select>
         </label>
 
-        <label class="field">
+                <label class="field">
           <span class="field__label">Solicitante</span>
           <select id="usuario_id">
             <option value="">Selecione...</option>
           </select>
         </label>
 
-        <div class="field field--full form-actions">
-          <button type="submit" id="btn-cadastrar" class="btn btn--primary">Registrar demanda</button>
-          <span id="form-erro" class="form-erro"></span>
-        </div>
-      </form>
-    </section>
+                <div class="field field--full form-actions">
+                    <button type="submit" id="btn-cadastrar" class="btn btn--primary">Registrar demanda</button>
+                    <span id="form-erro" class="form-erro"></span>
+                </div>
+            </form>
+        </section>
 
-    <section class="panel">
-      <div class="panel__header">
-        <h2>Demandas registradas</h2>
-        <div class="filtros">
-          <label class="filtro">
+        <section class="panel">
+            <div class="panel__header">
+                <h2>Demandas registradas</h2>
+                <div class="filtros">
+                    <label class="filtro">
             <span>Status</span>
             <select id="filtro-status">
               <option value="">Todos</option>
@@ -86,20 +88,21 @@
               <option value="Resolvido">Resolvido</option>
             </select>
           </label>
-          <button id="btn-atualizar" class="btn btn--ghost">Atualizar</button>
-        </div>
-      </div>
+                    <button id="btn-atualizar" class="btn btn--ghost">Atualizar</button>
+                </div>
+            </div>
 
-      <div id="lista-demandas" class="ticket-list">
-        <p class="estado-vazio">Carregando demandas...</p>
-      </div>
-    </section>
+            <div id="lista-demandas" class="ticket-list">
+                <p class="estado-vazio">Carregando demandas...</p>
+            </div>
+        </section>
 
-    <footer class="rodape">
-      <p>Sistema de Demandas &mdash; conectado ao banco de dados em nuvem</p>
-    </footer>
-  </div>
+        <footer class="rodape">
+            <p>Sistema de Demandas &mdash; conectado ao banco de dados em nuvem</p>
+        </footer>
+    </div>
 
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
