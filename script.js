@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://yoamnqxfocjpbqewamta.supabase.co/rest/v1";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvYW1ucXhmb2NqcGJxZXdhbXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NDUxOTcsImV4cCI6MjA5NzAyMTE5N30.cdjwbxcNrEgk2mEgmf4a1zqfRkipy8uVKKrqoe6KQO0";
+const SUPABASE_KEY = "SUA_ANON_KEY_AQUI";
 
 const headers = {
   "Content-Type": "application/json",
