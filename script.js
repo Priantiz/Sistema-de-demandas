@@ -1,3 +1,12 @@
+const SUPABASE_URL = "https://yoamnqxfocjpbqewamta.supabase.co/rest/v1";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvYW1ucXhmb2NqcGJxZXdhbXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NDUxOTcsImV4cCI6MjA5NzAyMTE5N30.cdjwbxcNrEgk2mEgmf4a1zqfRkipy8uVKKrqoe6KQO0";
+
+const headers = {
+  "Content-Type": "application/json",
+  "apikey": SUPABASE_KEY,
+  "Authorization": `Bearer ${SUPABASE_KEY}`
+};
+
 // ── Cadastrar demanda ──────────────────────────────────
 document.getElementById("btn-cadastrar").addEventListener("click", async () => {
   const titulo      = document.getElementById("titulo").value.trim();
@@ -11,9 +20,9 @@ document.getElementById("btn-cadastrar").addEventListener("click", async () => {
     return;
   }
 
-  const res = await fetch("/demandas", {
+  const res = await fetch(`${SUPABASE_URL}/demandas`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { ...headers, "Prefer": "return=representation" },
     body: JSON.stringify({ titulo, responsavel, descricao, status, prioridade })
   });
 
@@ -24,17 +33,17 @@ document.getElementById("btn-cadastrar").addEventListener("click", async () => {
     carregarDemandas();
   } else {
     const erro = await res.json();
-    alert(erro.erro);
+    alert("Erro ao cadastrar: " + (erro.message || "tente novamente."));
   }
 });
 
 // ── Listar demandas ────────────────────────────────────
 async function carregarDemandas() {
-  const res = await fetch("/demandas");
+  const res = await fetch(`${SUPABASE_URL}/demandas?order=id.desc`, { headers });
   const demandas = await res.json();
   const corpo = document.getElementById("corpo-tabela");
 
-  if (demandas.length === 0) {
+  if (!demandas.length) {
     corpo.innerHTML = '<tr><td colspan="7" class="vazio">Nenhuma demanda cadastrada.</td></tr>';
     return;
   }
@@ -49,7 +58,7 @@ async function carregarDemandas() {
       <td>${d.responsavel}</td>
       <td><span class="badge ${badgeStatus(d.status)}">${d.status}</span></td>
       <td><span class="badge ${badgePrioridade(d.prioridade)}">${d.prioridade}</span></td>
-      <td>${d.data_criacao}</td>
+      <td>${new Date(d.data_criacao).toLocaleDateString("pt-BR")}</td>
       <td>
         <button class="btn-remover" onclick="remover(${d.id})" title="Remover">✕</button>
       </td>
@@ -59,7 +68,10 @@ async function carregarDemandas() {
 
 // ── Remover demanda ────────────────────────────────────
 async function remover(id) {
-  await fetch(`/demandas/${id}`, { method: "DELETE" });
+  await fetch(`${SUPABASE_URL}/demandas?id=eq.${id}`, {
+    method: "DELETE",
+    headers
+  });
   carregarDemandas();
 }
 
@@ -76,5 +88,4 @@ function badgePrioridade(p) {
   return "badge-baixa";
 }
 
-// Carrega ao abrir a página
 carregarDemandas();

@@ -3,7 +3,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Lista em memória (será substituída pelo banco do pedrinho)
 demandas = []
 contador = {"id": 1}
 
@@ -11,7 +10,6 @@ contador = {"id": 1}
 def index():
     return render_template("index.html")
 
-# ── CADASTRO ──────────────────────────────────────────
 @app.route("/demandas", methods=["POST"])
 def cadastrar_demanda():
     dados = request.get_json()
@@ -34,12 +32,12 @@ def cadastrar_demanda():
 
     return jsonify(demanda), 201
 
-# ── LISTAGEM ──────────────────────────────────────────
+
 @app.route("/demandas", methods=["GET"])
 def listar_demandas():
     return jsonify(demandas), 200
 
-# ── EXCLUSÃO (bônus) ──────────────────────────────────
+
 @app.route("/demandas/<int:demanda_id>", methods=["DELETE"])
 def remover_demanda(demanda_id):
     global demandas
